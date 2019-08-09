@@ -42,34 +42,14 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-#      mode: replicated
-#      replicas: 2
+      mode: replicated
+      replicas: 2
     environment:
       - NAMESRV_ADDR=namesrv:9876
     volumes:
       - ./data/broker/logs:/home/rocketmq/logs
       - ./data/broker/store:/home/rocketmq/store
       - ./conf/broker.conf:/home/rocketmq/rocketmq-4.5.0/conf/broker.conf
-    command: sh mqbroker -c ./conf/broker.conf
-
-  broker2:
-    container_name: broker2
-    image: rocketmqinc/rocketmq:4.5.0-alpine
-    ports:
-      - "10909:10909"
-      - "10911:10911"
-      - "10912:10912"
-    networks:
-      - backend
-    deploy:
-      restart_policy:
-        condition: on-failure
-    environment:
-      - NAMESRV_ADDR=namesrv:9876
-    volumes:
-      - ./data/broker/logs:/home/rocketmq/logs
-      - ./data/broker/store:/home/rocketmq/store
-      - ./conf/broker2.conf:/home/rocketmq/rocketmq-4.5.0/conf/broker.conf
     command: sh mqbroker -c ./conf/broker.conf
 
 networks:
