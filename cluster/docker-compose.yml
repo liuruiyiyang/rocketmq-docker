@@ -2,12 +2,6 @@ version: '3'
 services:
   #Service for nameserver
   namesrv:
-    container_name: namesrv
-#    build:
-#      context: ../image-build
-#      dockerfile: Dockerfile-alpine
-#      args:
-#        version: 4.5.0
     image: rocketmqinc/rocketmq:4.5.0-alpine
     ports:
       - "9876:9876"
@@ -31,7 +25,6 @@ services:
 
   #Service for broker
   broker:
-    container_name: broker
     image: rocketmqinc/rocketmq:4.5.0-alpine
     ports:
       - "10909:10909"
@@ -49,7 +42,6 @@ services:
     volumes:
       - ./data/broker/logs:/home/rocketmq/logs
       - ./data/broker/store:/home/rocketmq/store
-      - ./conf/broker.conf:/home/rocketmq/rocketmq-4.5.0/conf/broker.conf
     command: sh mqbroker -c ./conf/broker.conf
 
 networks:
